@@ -1,0 +1,9 @@
+elasticsearch
+xmltodict
+xml.etree
+flask
+sqlalchemy
+pathlib
+subprocess
+collections
+pytest

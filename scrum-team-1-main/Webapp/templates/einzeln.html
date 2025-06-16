@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>singled out</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+
+    <div class="con">
+        
+    
+        <div class="nav-wrapper"> 
+               <div class="left-side">
+                
+                <div class="nav_link_wrapper">
+             
+                    <a href="http://localhost:5000"><i class="material-icons logo"><i> Homepage</a>
+                    </div>   
+         
+                  
+                        
+    
+                   
+                  
+                </div>
+       
+        
+                
+                <div class="right-side">
+                  
+                   
+                    {% for hit in res['hits']['hits'] %} <a href="{{ hit['_source']['required_header']['url'] }}"><span class="material-icons-outlined">
+                     
+                        </span> Do you want to see more details? Linking you to Clinicaltrials</a>   {% endfor %}
+                   
+                </div>
+        </div>
+    
+    </div>
+
+</head>
+<body>
+
+
+
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+
+    <div class="container">
+        
+    
+        <div class="nav-wrapper"> 
+               <div class="left-side">
+                  
+                        
+    
+               
+                        
+                       
+<div class= 'addedBox'> 
+
+
+    <div class='diseaseList' >  
+
+
+        <div class="purple">
+    
+<h3> Occuring Diseases (count): </h3>
+        </div>
+  <h4> 
+
+      
+    
+    {% for hit in getdis['hits']['hits'] %}
+         
+       {% if hit['_source']|length  %} 
+         {% for hitt in hit['_source']['occuringCounts-Disease']['Disease'] %}
+           
+        <div class="purple">   {{hitt['standarizedtag']}} :</div> {{hitt['name']}} ({{hitt['count']}}) 
+              <p></p>
+           
+        {% endfor %} 
+        <p></p>
+
+        {% else %}
+
+        <h5>No diseases detected..</h5>
+        {% endif %}
+           
+    {% endfor %}  
+    
+   </h4>
+    </div>
+
+
+<hr>
+     <div class='geneList' >  
+
+       <div class="green">
+        <h3> Occuring Genes (count): </h3>
+    </div>
+        <h4> 
+             {% for hit in getgene['hits']['hits'] %}
+        
+                {% if hit['_source']|length  %}   
+ 
+                    {% for hitt in hit['_source']['occuringCounts-Gene']['Gene'] %}                    
+                    <div class="green"> {{hitt['standarizedtag']}} :  </div>{{hitt['name']}} ({{hitt['count']}})
+                    <p></p>
+                    {% endfor %}
+                         
+                         
+                         
+                   <p></p>
+ 
+                 {% else %}
+ 
+                 <h5>No genes detected..</h5>
+                 {% endif %}
+                  
+             
+          
+            {% endfor %}  
+        
+       </h4>
+
+    
+
+    </div>
+   
+
+
+</div>
+                  
+                </div>
+                
+        
+                
+                <div class="right-side">
+                  
+                   
+                      
+                     
+                         
+    {% for hit in res['hits']['hits'] %}
+      
+      
+    <table id="DetailTabelle">
+
+
+       
+        
+        <tr> <td><h3>Studien ID:</h3>{{hit['_source']['id_info']['nct_id']}}</td></tr>
+
+        <tr> <td><h3>Titel:</h3>{{ hit['_source']['brief_title'] }}</td> </tr>
+
+        <tr> <td><h3>Kurze Beschreibung:</h3>{{ hit['_source']['brief_summary'] }} </td></tr>
+
+        <tr> <td><h3>Lange Beschreibung:</h3>{{ hit['_source']['detailed_description'] }} </td></tr>
+
+        <tr> <td><h3>Phase:</h3>{{ hit['_source']['phase'] }} </td></tr>
+
+        <tr> <td><h3>Status:</h3>{{ hit['_source']['overall_status'] }} </td></tr>
+
+        <tr> <td><h3>Design:</h3>{{ hit['_source']['study_design_info'] }} </td></tr>
+
+        <tr> <td><h3>Untersuchte Erkrankung:</h3>{{ hit['_source']['condition'] }} </td></tr>
+
+        <tr> <td><h3>Intervention:</h3>{% for hitt in hit['_source']['intervention'] %}{{ hitt['intervention_name']}}<h3></h3>{% endfor %} </td></tr>
+
+        <tr> <td><h3>Ein- und Ausschlusskriterien:</h3>{{ hit['_source']['has_expanded_access'] }} </td></tr>
+
+        <tr> <td><h3>Kontakt:</h3>{{ hit['_source']['overall_contact'] }} </td></tr>
+
+        <tr> <td><h3>Addresse:</h3>{% for hitt in hit['_source']['location'] %}{{ hitt['facility']}}<h3></h3>{% endfor %} </td></tr>
+       
+   
+            
+     
+         </table> 
+    
+  
+  
+  
+  
+  
+  {% endfor %}
+  
+                </div>
+        </div>
+    
+    </div>
+    
+</body>
+</html>

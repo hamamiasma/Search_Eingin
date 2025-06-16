@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pacifico">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    
+    <p> 
+
+        <div style="color: rgb(255, 255, 255);">
+        
+        <h1>
+    Hi there! 
+    I am Baymax, your 
+    <div style="color: black;"> 
+    <div style="font-family:  Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">personal healthcare companion.</div>
+    </div>
+     </h1> </p>
+     
+    <!--jinja2 syntax.. jinja2 is a web template engine that flask uses 
+    here we outline where wed insert our own code for each page 
+    that uses base for inheritance-->
+
+
+{% if not res %}
+  {% set phase_checked = ["","","","","","","",""] %}
+  {% set status_checked= ["","","","","","","","", "","",""] %}
+{% endif %}
+
+   
+    <br></br>
+            <div style="color: rgb(255, 255, 255);">
+              <div style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+                
+                <p>
+                  <center>
+                  <font size="50">ASK BAYMAX</font>
+                  </center>
+                </p>
+              </div>
+
+
+            
+    
+  
+      
+              
+              <div style="color: black;">
+                  
+                <div style="color: black;">
+                  <div class="containerr">
+                       <div class="nav-wrapper"> 
+                         <div class="left-side">
+             
+  <form  action="/results"  id="search_form" method="POST" >
+
+   
+
+      <center> 
+       
+      <h4>Suchbegriffe:</h4>
+      <input type="text" id="search_term" size="80" name="search_term" value="{{ search_term if search_term is not none else ''}}">
+    
+    
+      <br></br>
+      <h4>Disease ID:</h4>
+      <input type="text" size="80" name="disease_id" placeholder="Make sure to seperate IDs only by spaces" value="{{ disease_id if disease_id is not none else ''}}"  >
+    
+      <br></br>
+      <h4>Gene ID:</h4>
+      <input type="text" size="80" name="gene_id" placeholder="Make sure to seperate IDs only by spaces" value="{{ gene_id if gene_id is not none else ''}}"  >
+      <br></br>
+      <input type="submit"  value="Search">
+    </center>
+
+
+  
+    
+      <br></br>
+      <br></br>
+ 
+        
+           
+                 
+
+                 </div> 
+              
+     <div class="filterPhase">
+  <h4>Filtering Phases:</h4> 
+
+                             <input type="checkbox" value="N/A" name="mycheckbox" {{phase_checked[0]}}  >N/A<br>
+                             <input type="checkbox" value="Phase 1" name="mycheckbox" {{phase_checked[1]}} >Phase 1<br>
+                             <input type="checkbox" value="Phase 2" name="mycheckbox" {{phase_checked[2]}} >Phase 2<br> 
+                             <input type="checkbox" value="Phase 3" name="mycheckbox" {{phase_checked[3]}} >Phase 3<br>
+                          
+                             <input type="checkbox" value="Phase 4" name="mycheckbox" {{phase_checked[4]}} >Phase 4<br>
+                             <input type="checkbox" value="Early Phase 1" name="mycheckbox"   {{phase_checked[5]}}  >Early Phase 1<br>
+                             <input type="checkbox" value="Phase 1/Phase 2" name="mycheckbox" {{phase_checked[6]}} >Phase 1/Phase 2<br> 
+                             <input type="checkbox" value="Phase 2/Phase 3" name="mycheckbox" {{phase_checked[7]}} >Phase 2/Phase 3<br>
+                             <br>  
+                             <input type="button" onclick='selects()' value="Select All"/>  
+                             <input type="button" onclick='deSelect()' value="Deselect All"/> 
+                            </div> 
+               <div class="filterStat">    
+                            
+           
+
+    <h4>Filtering Status:</h4> 
+                             <input type="checkbox" value="Completed" name="mycheckbox2" {{status_checked[0]}}  >Completed<br>
+                             <input type="checkbox" value="Not yet recruiting" name="mycheckbox2" {{status_checked[1]}}>Not yet recruiting<br>
+                             <input type="checkbox" value="Active, not recruiting" name="mycheckbox2" {{status_checked[2]}}>Active, not recruiting<br> 
+                             <input type="checkbox" value="Terminated" name="mycheckbox2" {{status_checked[3]}}>Terminated<br>
+                             <input type="checkbox" value="Enrolling by invitation" name="mycheckbox2" {{status_checked[4]}} >Enrolling by invitation<br>
+                             <input type="checkbox" value="Withdrawn" name="mycheckbox2" {{status_checked[5]}}>Withdrawn<br>
+                             <input type="checkbox" value="Unknown status" name="mycheckbox2" {{status_checked[6]}}>Unknown status<br> 
+                             <input type="checkbox" value="Recruiting" name="mycheckbox2" {{status_checked[7]}}>Recruiting<br>
+                             <input type="checkbox" value="No Longer available" name="mycheckbox2" {{status_checked[8]}}>No Longer available<br>
+                             <input type="checkbox" value="Available" name="mycheckbox2" {{status_checked[9]}}>Available<br>
+                             <input type="checkbox" value="Withheld" name="mycheckbox2" {{status_checked[10]}}>Withheld<br> 
+                             <br>  
+                             <input type="button" onclick='select2()' value="Select All"/>  
+                             <input type="button" onclick='deSelect2()' value="Deselect All"/> 
+                            </div>                
+     
+    </div>
+  </div>
+</div>
+                         
+                      <br></br>           
+    
+   
+    
+    
+               
+ 
+   
+       
+    
+    </form>
+
+  
+
+
+
+
+
+
+
+
+
+
+    <br></br> 
+  <!--implementing select and deselect all for filter phase--> 
+  <script>  
+    function selects(){  
+        var elements=document.getElementsByName("mycheckbox");  
+        for(var i=0; i<elements.length; i++){  
+            if(elements[i].type=="checkbox")  
+                elements[i].checked=true;  
+        }  
+    }  
+    function deSelect(){  
+        var elements=document.getElementsByName("mycheckbox");  
+        for(var i=0; i<elements.length; i++){  
+            if(elements[i].type=="checkbox")  
+                elements[i].checked=false;  
+              
+        }  
+    }             
+</script>  
+ <!--implementing select and deselect all for filter status--> 
+ <script>  
+  function select2(){  
+      var elements=document.getElementsByName("mycheckbox2");  
+      for(var i=0; i<elements.length; i++){  
+          if(elements[i].type=="checkbox")  
+              elements[i].checked=true;  
+      }  
+  }  
+  function deSelect2(){  
+      var elements=document.getElementsByName("mycheckbox2");  
+      for(var i=0; i<elements.length; i++){  
+          if(elements[i].type=="checkbox")  
+              elements[i].checked=false;  
+            
+      }  
+  }             
+</script> 
+
+ 
+
+<!--  
+  <div class='addedBox'>   
+
+  <div class = 'input'>   
+  <div style="color: black">
+
+  <h3>Search Phrase: {{search_term}} </h3>
+  <h4>Disease IDs: {{disease_id}}</h4>
+  <h4>Selected Phase: {{phase_term}} </h4>
+  <h4>Selected Status: {{status_term}}</h4>
+  
+
+  </div>
+  </div>
+ 
+  </div> 
+
+-->
+
+<body> 
+
+
+
+
+
+
+{% if res %}
+
+
+  
+
+
+
+
+ <div>
+  {% if hits_from > 0 %}
+      <button type="submit" form="search_form" id="hits_from" name="hits_from" value="{{ [0, hits_from - num_results_per_page]|max }}">&lt;</button>
+  {% else %}
+      <button type="submit" disabled>&lt;</button>
+  {% endif %}
+
+  Seite {{ current_page }}  von {{ num_pages }}
+  
+  {% if hits_from + num_results_per_page < total_hits %}
+      <button type="submit" form="search_form" id="hits_from" name="hits_from" value="{{ hits_from + num_results_per_page }}">&gt;</button>
+  {% else %}
+      <button type="submit" disabled>&gt;</button>
+  {% endif %}
+ </div>  
+
+
+ <hr />
+
+    <br></br>
+
+    <div style="color: rgb(0, 0, 0);"> 
+
+
+  <ul >
+    <caption>  <h1>Total Number of Studies that match the search: ({{total_hits}}) </h1></caption>
+  
+  
+  
+  
+    {% for hit in res['hits']['hits'] %}
+  
+     
+      {# here we go to study we clicked on #}
+      <center>
+      <div class="sidebar">
+        <div class="post">
+    
+  
+        <h1 class="subtitle">{{ hit['_source']['brief_title'] }}</h1> 
+        
+      <a href="http://localhost:5000/resultsdetail/{{ hit['_source']['id_info']['nct_id'] }}"> <li> ID:{{hit['_source']['id_info']['nct_id'] }}</li></a> 
+        
+      
+        <li>{{ hit['_source']['brief_summary'] }}</li>
+        <li>{{ hit['_source']['phase'] }}</li> 
+        <li>{{ hit['_source']['overall_status'] }}</li> 
+        <li>{{ hit['_source']['condition'] }}</li> 
+        
+        <li>{% for hitt in hit['_source']['intervention']%}{{ hitt['intervention_name']}}{%endfor %}</li>  
+      </div>
+    </div>
+     
+   
+    </center>
+   
+  </ul>
+  <center>
+    <hr />
+  </center>
+    {% endfor %}
+<br><br>
+
+
+ 
+
+
+
+
+{% endif %}
+
+
+
+
+
+
+
+   
+
+
+</body>
+
+
+</html>
+
+
+
+

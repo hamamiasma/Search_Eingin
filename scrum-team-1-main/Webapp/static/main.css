@@ -1,0 +1,144 @@
+body {
+    background-image: url(take1.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 77vh;
+  background-color: paleturquoise;
+
+}
+
+
+.purple{
+   color: purple;
+}
+
+.green{
+    color: green;
+ }
+
+
+
+
+.con{
+
+  
+    display:grid;
+    grid-template-columns: 1fr;
+}
+
+.containerr{
+
+    display:grid;
+    grid-template-columns: 1fr;
+}
+
+
+.container{
+    background-color:paleturquoise ;
+    border: 1px solid #000;
+    display:grid;
+    grid-template-columns: 1fr;
+}
+
+
+.nav-wrapper {
+ display :flex; 
+ justify-content: space-between;
+ padding: 100px;
+}
+
+.left-side{
+    display:flex;
+    
+}
+
+
+.nav-wrapper > .left-side > div {
+
+    margin-right : 20px;
+    font-size :0.9em;
+    text-transform: uppercase;
+
+    
+
+}
+
+
+caption{
+    text-align : left;
+}
+
+td{
+    background-color: rgb(243, 241, 241);
+}
+
+table, th, td{
+    border: 1px solid #000;
+    
+    border-spacing: 1em;
+    border-style: double;
+}
+
+th, td{
+
+    padding : 10px
+ 
+}
+
+
+
+
+
+tr[data-href]{
+    cursor:pointer;
+
+}
+
+
+
+
+tr:nth-child(odd) {
+    background-color: white;
+}
+
+
+.sidebar {
+	animation-name: fade-in;
+	animation-duration: 100s;
+  width: 600px;
+
+}
+h1 {
+	font-family: 'Roboto Condensed', sans-serif;
+}
+.subtitle {
+ 
+  font-style: inherit ;
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+} 
+li {
+	font-family: 'Lato', sans-serif;
+}
+.post > a {
+	margin-left: 5px;
+	margin-right: 5px;
+	text-decoration: none;
+	color: blue;
+	transition: 0.5s color;
+  
+}
+
+hr {
+    height: 1px;
+    background-color: #000;
+    margin: 10px;
+  }
+
+
+
+
+
+
+
+
